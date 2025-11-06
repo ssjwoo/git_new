@@ -1,0 +1,39 @@
+# .github/workflows/ci.yml
+
+# 1. 이 로봇의 이름은 "CI 파이프라인"입니다.
+name: CI Pipeline
+
+# 2. 이 로봇은 언제 깨어나나요?
+on:
+  # 'main' 브랜치에 코드가 올라오면(push) 작동!
+  push:
+    branches:
+      - main
+  # 'main' 브랜치로 코드를 합쳐달라고(Pull Request) 요청이 와도 작동!
+  pull_request:
+    branches:
+      - main
+
+# 3. 이 로봇은 무슨 일을 하나요?
+jobs:
+  build-and-test: # '빌드와 테스트'라는 작업을 시킬게요.
+    # '우분투'라는 깨끗한 임시 PC(로봇)에서 실행해요.
+    runs-on: ubuntu-latest
+
+    # 순서대로 할 일 목록
+    steps:
+      # (1) 깃허브에 있는 코드를 임시 PC로 가져오기 (필수!)
+      # 로봇이 님의 코드를 읽을 수 있게 복사해오는 과정입니다.
+      - name: 1. Checkout repository code
+        uses: actions/checkout@v4
+
+      # (2) 코드가 제대로 복사되었는지 확인 (실무 버전 테스트)
+      # 'ls -la'는 "여기 있는 파일 목록 전부 보여줘!" 라는 명령어입니다.
+      - name: 2. Check repository files
+        run: ls -la
+
+      # (3) (가짜) 빌드 테스트
+      # 나중에 진짜 'docker build' 같은 명령어가 들어갈 자리입니다.
+      # 지금은 '빌드 성공!'이라는 메시지를 띄우는 걸로 조립 라인을 테스트합니다.
+      - name: 3. Run a fake build test
+        run: echo "✅ (테스트) 빌드 작업이 성공적으로 실행되었습니다."
