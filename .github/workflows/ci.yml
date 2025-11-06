@@ -37,3 +37,6 @@ jobs:
       # 지금은 '빌드 성공!'이라는 메시지를 띄우는 걸로 조립 라인을 테스트합니다.
       - name: 3. Run a fake build test
         run: echo "✅ (테스트) 빌드 작업이 성공적으로 실행되었습니다."
+    
+      - name: 4. Force a failure test
+        run: exit 1
